@@ -20,8 +20,6 @@ const injectScript = () => {
 const banner = `
   <div  style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
       <button onclick="TogetherJS(this); return false;">Start a session</button>
-  </div>
-  <div  style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
       <button onclick="TogetherJS(this); return false;">Join a Session</button>
   </div>
 `;
