@@ -14,7 +14,7 @@ const injectScript = () => {
 };
 
 const banner = `
-  <div  style="position: fixed;z-index: 99999999;height: 250px;width: 300px;bottom: 50%;right: 50%;">
+  <div  style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
         <button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
   </div>
 `;
