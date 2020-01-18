@@ -21,6 +21,10 @@ const banner = `
   <div  style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
       <button onclick="TogetherJS(this); return false;">Start a session</button>
       <button onclick="TogetherJS(this); return false;">Join a Session</button>
+      <form>
+        <input id='input' placeholder='session code'/>
+        <button id='submit'>Submit</button>
+      </form>
   </div>
 `;
 
@@ -29,3 +33,8 @@ const banner = `
 
 injectScript()
 injectDiv(banner);
+
+
+document.getElementById('submit').onclick = function () {
+  injectSessionId(document.getElementById('input').value);
+}
