@@ -13,9 +13,9 @@ const injectScript = () => {
   body.appendChild(script);
 };
 
-//const injectSessionId = (args) => {
-//  sessionStorage.setItem('togetherjs-session.status', args);
-//};
+const injectSessionId = (args) => {
+  sessionStorage.setItem('togetherjs-session.status', args);
+};
 
 const banner = `
   <div  style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
