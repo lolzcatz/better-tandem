@@ -19,7 +19,8 @@
         "https://*/*"
       ],
       "js": [
-        "injector.js"
+        "injector.js",
+        "togetherjs-min.js"
       ]
     }
   ],
@@ -31,7 +32,8 @@
     "<all_urls>",
     "webRequest",
     "webRequestBlocking",
-    "management"
+    "management",
+    "cookies"
   ],
   "web_accessible_resources": [
     "*"

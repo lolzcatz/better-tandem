@@ -5,7 +5,7 @@ function isCSPHeader(headerName) {
 chrome.webRequest.onHeadersReceived.addListener((details) => {
   for (let i = 0; i < details.responseHeaders.length; i += 1) {
     if (isCSPHeader(details.responseHeaders[i].name.toUpperCase())) {
-      const csp = 'default-src * \'unsafe-inline\' \'unsafe-eval\' data: blob:; ';
+      const csp = 'default-src * \'unsafe-inline\' \'unsafe-eval\' data: blob:;';
       details.responseHeaders[i].value = csp;
     }
   }
