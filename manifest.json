@@ -4,7 +4,7 @@
   "description": "Browsing",
   "version": "3",
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "images/icon.png"
   },
   "background": {
     "scripts": [
@@ -21,6 +21,9 @@
       "js": [
         "injector.js",
         "togetherjs-min.js"
+      ],
+      "css": [
+        "main.css"
       ]
     }
   ],
@@ -36,7 +39,7 @@
     "cookies"
   ],
   "web_accessible_resources": [
-    "*"
+    "images/*"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
