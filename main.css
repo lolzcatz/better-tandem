@@ -10,7 +10,11 @@
 
 
 #togetherjs-dock, .togetherjs-dock-right {
-    display: none !important;
+  right: -60px !important;
+}
+
+#togetherjs-share, div#togetherjs-share {
+  display: none !important;
 }
 
 .top-banner {
