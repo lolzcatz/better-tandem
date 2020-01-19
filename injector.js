@@ -15,6 +15,7 @@ const injectScript = () => {
 
 const injectSessionId = (args) => {
   sessionStorage.setItem('togetherjs-session.status', args);
+  
 };
 
 const getSessionId = () => {
@@ -30,6 +31,7 @@ const getShortCode = () => {
 const sendCookiesToBG = () => {
   chrome.runtime.sendMessage({
     type: "cookies",
+    location: window.location.href,
     shortCode: getShortCode(),
   });
 }
