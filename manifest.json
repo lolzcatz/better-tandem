@@ -43,5 +43,5 @@
   "web_accessible_resources": [
     "images/*"
   ],
-  "content_security_policy": "script-src 'self' https://www.gstatic.com/; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://s-usc1c-nss-254.firebaseio.com/ https://better-tandem.firebaseio.com/; object-src 'self'"
 }

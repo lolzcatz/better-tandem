@@ -39,6 +39,14 @@ const sendCookiesToBG = () => {
   });
 }
 
+const setCookies = (shortCode) => {
+  chrome.runtime.sendMessage({
+    type: "setCookies",
+    location: window.location.href,
+    shortCode: shortCode,
+  });
+}
+
 const banner = `
   <div  style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
       <button id="startSession" onclick="TogetherJS(this); return false;">Start a session</button>
@@ -119,4 +127,13 @@ document.getElementById('join').onclick = function () {
 document.getElementById('shortcode').onclick = function () {
   let code = getShortCode();
   copyToClipboard(code);
+
+
+document.getElementById('submit').onclick = function () {
+  injectSessionId(document.getElementById('input').value);
+  setCookies(document.getElementById('input').value);
+}
+
+document.getElementById('getShortCode').onclick = function () {
+  sendCookiesToBG();
 }
