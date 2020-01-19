@@ -23,19 +23,27 @@ const getSessionId = () => {
 
 const getShortCode = () => {
   const obj = JSON.parse(sessionStorage.getItem('togetherjs-session.status'));
-  console.log("THIS IS THE SHORTCODE");
-  console.log(obj['shareId'] + "-" + obj['sessionId']);
+  return (obj['shareId'] + "-" + obj['sessionId']);
+};
+
+const getDate = () => {
+  const obj = JSON.parse(sessionStorage.getItem('togetherjs-session.status'));
+  return (obj['date']);
+};
+
+const joinWithShortCode = (shortcode) => {
+  var array = shortcode.split("-"), shareId = array[0], sessionId = array[1];
+  var string = "{\"reason\":\"started\",\"shareId\":\"" + shareId + "\",\"running\":"+"true,\"date\":" + getDate() + ",\"sessionId\":\"" + sessionId + "\"}";
+  sessionStorage.setItem('togetherjs-session.status', string);
 };
 
 const banner = `
-  <div  style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
+  <div style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
       <button onclick="TogetherJS(this); return false;">Start a session</button>
       <button onclick="TogetherJS(this); return false;">Join a Session</button>
-      <button id="getShortCode">Get Session</button>
-      <form>
-        <input id='input' placeholder='session code'/>
-        <button id='submit'>Submit</button>
-      </form>
+      <button id="getShortCode">Get ShortCode</button>
+      <input id='input' placeholder='session code'/>
+      <button id="joinShortCode">Join ShortCode Session</button>
   </div>
 `;
 
@@ -46,10 +54,11 @@ injectScript()
 injectDiv(banner);
 
 
-document.getElementById('submit').onclick = function () {
-  injectSessionId(document.getElementById('input').value);
+document.getElementById('getShortCode').onclick = function () {
+  console.log("THIS IS THE SHORTCODE");
+  console.log(getShortCode());
 }
 
-document.getElementById('getShortCode').onclick = function () {
-  getShortCode();
+document.getElementById('joinShortCode').onclick = function () {
+  joinWithShortCode(document.getElementById('input').value);
 }
