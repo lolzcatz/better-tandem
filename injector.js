@@ -61,13 +61,13 @@ const banner = `
             <i class="fab-action-button__icon"></i>
         </span>
       <ul class="fab-buttons">
-        <li class="fab-buttons__item" id="stop" style="display:none;" onclick="TogetherJS(this); document.getElementById('fab-button').style.backgroundColor = 'red'; document.getElementById('stop').style.display = 'none'; document.getElementById('host').style.display = 'block'; document.getElementById('join').style.display = 'none'; document.getElementById('shortcode').style.display = 'none';" >
+        <li class="fab-buttons__item" id="stop" style="display:none;" onclick="localStorage.removeItem('better-tandem-on');TogetherJS(this); document.getElementById('fab-button').style.backgroundColor = 'red'; document.getElementById('stop').style.display = 'none'; document.getElementById('host').style.display = 'block'; document.getElementById('join').style.display = 'none'; document.getElementById('shortcode').style.display = 'none';" >
           <div class="fab-buttons__link" data-tooltip="Stop Session">
             <i class="icon-material icon-material_stop"></i>
           </div>
         </li>
-        <li class="fab-buttons__item" id="host" onclick="TogetherJS(this); document.getElementById('fab-button').style.backgroundColor = 'green'; document.getElementById('stop').style.display = 'block'; document.getElementById('host').style.display = 'none'; document.getElementById('join').style.display = 'block'; document.getElementById('shortcode').style.display = 'block';">
-          <div class="fab-buttons__link" data-tooltip="Host a session" >
+        <li class="fab-buttons__item" id="host" onclick="localStorage.setItem('better-tandem-on', '1'); TogetherJS(this); document.getElementById('fab-button').style.backgroundColor = 'green'; document.getElementById('stop').style.display = 'block'; document.getElementById('host').style.display = 'none'; document.getElementById('join').style.display = 'block'; document.getElementById('shortcode').style.display = 'block';">
+          <div class="fab-buttons__link" data-tooltip="Host a Session" >
             <i class="icon-material icon-material_start"></i>
           </div>
         </li>
@@ -98,4 +98,16 @@ document.getElementById('join').onclick = function () {
 document.getElementById('shortcode').onclick = function () {
   let code = getShortCode();
   copyToClipboard(code);
+}
+
+window.onload = function(e){ 
+  if (localStorage.getItem('better-tandem-on') == '1') {
+    document.getElementById('fab-button').style.backgroundColor = 'green'; 
+    document.getElementById('stop').style.display = 'block'; 
+    document.getElementById('host').style.display = 'none'; 
+    document.getElementById('join').style.display = 'block'; 
+    document.getElementById('shortcode').style.display = 'block';
+  } else {
+    // do nothing
+  }
 }
