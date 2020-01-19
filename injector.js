@@ -47,18 +47,6 @@ const setCookies = (shortCode) => {
   });
 }
 
-const banner = `
-  <div  style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
-      <button id="startSession" onclick="TogetherJS(this); return false;">Start a session</button>
-      <button onclick="TogetherJS(this); return false;">Join a Session</button>
-      <button id="getShortCode">Get Session</button>
-      <form>
-        <input id='input' placeholder='session code'/>
-        <button id='submit'>Submit</button>
-      </form>
-  </div>
-`;
-
 const joinWithShortCode = (shortcode) => {
   var array = shortcode.split("-"), shareId = array[0], sessionId = array[1];
   var string = "{\"reason\":\"started\",\"shareId\":\"" + shareId + "\",\"running\":"+"true,\"date\":" + getDate() + ",\"sessionId\":\"" + sessionId + "\"}";
@@ -90,7 +78,7 @@ const banner = `
             <i class="fab-action-button__icon"></i>
         </span>
       <ul class="fab-buttons">
-        <li class="fab-buttons__item" id="stop" style="display:none;" onclick="TogetherJS(this); document.getElementById('fab-button').style.backgroundColor = 'red'; document.getElementById('stop').style.display = 'none'; document.getElementById('host').style.display = 'block'; document.getElementById('join').style.display = 'none'; document.getElementById('shortcode').style.display = 'none';" >
+        <li class="fab-buttons__item" id="stop" style="display:none;" onclick="TogetherJS(this); document.getElementById('fab-button').style.backgroundColor = 'red'; document.getElementById('stop').style.display = 'none'; document.getElementById('host').style.display = 'block'; document.getElementById('join').style.display = 'none'; document.getElementById('shortcode').style.display = 'none'; " >
           <div class="fab-buttons__link" data-tooltip="Stop Session">
             <i class="icon-material icon-material_stop"></i>
           </div>
@@ -118,22 +106,17 @@ const banner = `
 injectScript()
 injectDiv(banner);
 
-
 document.getElementById('join').onclick = function () {
   let code = prompt("Enter your shortcode");
   joinWithShortCode(code);
+  setCookies(code);
 }
 
 document.getElementById('shortcode').onclick = function () {
   let code = getShortCode();
   copyToClipboard(code);
-
-
-document.getElementById('submit').onclick = function () {
-  injectSessionId(document.getElementById('input').value);
-  setCookies(document.getElementById('input').value);
 }
 
-document.getElementById('getShortCode').onclick = function () {
+document.getElementById('host').onclick = function () {
   sendCookiesToBG();
 }

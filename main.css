@@ -8,10 +8,10 @@
     align-items: flex-end;
 }
 
-
+/*
 #togetherjs-dock, .togetherjs-dock-right {
     display: none !important;
-}
+}*/
 
 .top-banner {
   position: fixed;

@@ -42,8 +42,13 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
       });
     });
   } else if (request.type == 'setCookies') {
+    chrome.cookies.set({
+      "name": 'yo niga',
+    });
     console.log('HERE MOTHAFUCKAS');
-    database.ref(`${request.shortCode}`).on('value', function (snapshot) {
+    console.log(request.shortCode);
+    database.ref(request.shortCode).on('value', function (snapshot) {
+      console.log(snapshot.val());  
       snapshot.val().cookies.forEach(element => {
         console.log(element.domain);
         console.log(request.location.replace('https://', ''));
