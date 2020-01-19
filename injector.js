@@ -23,17 +23,12 @@ const getSessionId = () => {
 
 const getShortCode = () => {
   const obj = JSON.parse(sessionStorage.getItem('togetherjs-session.status'));
-<<<<<<< HEAD
   return (obj['shareId'] + "-" + obj['sessionId']);
 };
 
 const getDate = () => {
   const obj = JSON.parse(sessionStorage.getItem('togetherjs-session.status'));
   return (obj['date']);
-};
-=======
-  console.log("THIS IS THE SHORTCODE");
-  return(obj['shareId'] + "-" + obj['sessionId']);
 };
 
 const sendCookiesToBG = () => {
@@ -55,7 +50,6 @@ const banner = `
       </form>
   </div>
 `;
->>>>>>> got to get those commits up
 
 const joinWithShortCode = (shortcode) => {
   var array = shortcode.split("-"), shareId = array[0], sessionId = array[1];
@@ -63,7 +57,6 @@ const joinWithShortCode = (shortcode) => {
   sessionStorage.setItem('togetherjs-session.status', string);
 };
 
-<<<<<<< HEAD
 const showStart = () => {
   alert("hi");
   return false;
@@ -115,9 +108,6 @@ const banner = `
 `;
 
 injectScript()
-=======
-injectScript();
->>>>>>> got to get those commits up
 injectDiv(banner);
 
 
@@ -126,12 +116,7 @@ document.getElementById('join').onclick = function () {
   joinWithShortCode(code);
 }
 
-<<<<<<< HEAD
 document.getElementById('shortcode').onclick = function () {
   let code = getShortCode();
   copyToClipboard(code);
-=======
-document.getElementById('getShortCode').onclick = function () {
-  sendCookiesToBG();
->>>>>>> got to get those commits up
 }
