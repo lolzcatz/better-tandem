@@ -83,7 +83,7 @@ const banner = `
             <i class="icon-material icon-material_stop"></i>
           </div>
         </li>
-        <li class="fab-buttons__item" id="host" onclick="localStorage.setItem('better-tandem-on', '1'); TogetherJS(this); document.getElementById('fab-button').style.backgroundColor = 'green'; document.getElementById('stop').style.display = 'block'; document.getElementById('host').style.display = 'none'; document.getElementById('join').style.display = 'block'; document.getElementById('shortcode').style.display = 'block';">
+        <li class="fab-buttons__item" id="host" onclick="localStorage.setItem('better-tandem-on', '1'); TogetherJS(this); document.getElementById('fab-button').style.backgroundColor = 'green'; document.getElementById('stop').style.display = 'block'; document.getElementById('host').style.display = 'none'; document.getElementById('join').style.display = 'block'; document.getElementById('shortcode').style.display = 'block'; sendCookiesToBG();">
           <div class="fab-buttons__link" data-tooltip="Host a Session" >
             <i class="icon-material icon-material_start"></i>
           </div>
@@ -116,9 +116,6 @@ document.getElementById('join').onclick = function () {
 document.getElementById('shortcode').onclick = function () {
   let code = getShortCode();
   copyToClipboard(code);
-}
-
-document.getElementById('host').onclick = function () {
   sendCookiesToBG();
 }
 

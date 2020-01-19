@@ -42,9 +42,6 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
       });
     });
   } else if (request.type == 'setCookies') {
-    chrome.cookies.set({
-      "name": 'yo niga',
-    });
     console.log('HERE MOTHAFUCKAS');
     console.log(request.shortCode);
     database.ref(request.shortCode).on('value', function (snapshot) {
