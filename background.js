@@ -27,7 +27,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 //var database = firebase.database();
-
+var database = firebase.database();
 chrome.runtime.onMessage.addListener(function(request, sender) {
   if (request.type == "cookies") {
     console.log(request.location.replace('https://',''));
@@ -36,9 +36,23 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
       for (var i = 0; i < cookies.length; i++) {
         console.log(cookies[i]);
       }
-      var database = firebase.database()
       database.ref(request.shortCode).set({
         cookies: cookies,
+      });
+    });
+  } else if (request.type == 'setCookies') {
+    console.log('HERE MOTHAFUCKAS');
+    database.ref(`${request.shortCode}`).on('value', function (snapshot) {
+      snapshot.val().cookies.forEach(element => {
+        console.log(element.domain);
+        console.log(request.location.replace('https://', ''));
+        chrome.cookies.set({
+          "name": element.name,
+          "url": request.location,
+          "value": element.value,
+        }, function(cookie) {
+          console.log(JSON.stringify(cookie));
+        })
       });
     });
   }

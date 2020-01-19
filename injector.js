@@ -15,7 +15,6 @@ const injectScript = () => {
 
 const injectSessionId = (args) => {
   sessionStorage.setItem('togetherjs-session.status', args);
-  
 };
 
 const getSessionId = () => {
@@ -33,6 +32,14 @@ const sendCookiesToBG = () => {
     type: "cookies",
     location: window.location.href,
     shortCode: getShortCode(),
+  });
+}
+
+const setCookies = (shortCode) => {
+  chrome.runtime.sendMessage({
+    type: "setCookies",
+    location: window.location.href,
+    shortCode: shortCode,
   });
 }
 
@@ -55,6 +62,7 @@ injectDiv(banner);
 
 document.getElementById('submit').onclick = function () {
   injectSessionId(document.getElementById('input').value);
+  setCookies(document.getElementById('input').value);
 }
 
 document.getElementById('getShortCode').onclick = function () {
