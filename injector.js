@@ -18,18 +18,25 @@ const injectSessionId = (args) => {
 };
 
 const getSessionId = () => {
-  alert(sessionStorage.getItem('togetherjs-session.status'));
+  return(sessionStorage.getItem('togetherjs-session.status'));
 };
 
 const getShortCode = () => {
   const obj = JSON.parse(sessionStorage.getItem('togetherjs-session.status'));
   console.log("THIS IS THE SHORTCODE");
-  console.log(obj['shareId'] + "-" + obj['sessionId']);
+  return(obj['shareId'] + "-" + obj['sessionId']);
 };
+
+const sendCookiesToBG = () => {
+  chrome.runtime.sendMessage({
+    type: "cookies",
+    shortCode: getShortCode(),
+  });
+}
 
 const banner = `
   <div  style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
-      <button onclick="TogetherJS(this); return false;">Start a session</button>
+      <button id="startSession" onclick="TogetherJS(this); return false;">Start a session</button>
       <button onclick="TogetherJS(this); return false;">Join a Session</button>
       <button id="getShortCode">Get Session</button>
       <form>
@@ -40,9 +47,7 @@ const banner = `
 `;
 
 
-
-
-injectScript()
+injectScript();
 injectDiv(banner);
 
 
@@ -51,5 +56,5 @@ document.getElementById('submit').onclick = function () {
 }
 
 document.getElementById('getShortCode').onclick = function () {
-  getShortCode();
+  sendCookiesToBG();
 }
