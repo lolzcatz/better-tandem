@@ -93,6 +93,7 @@ injectDiv(banner);
 document.getElementById('join').onclick = function () {
   let code = prompt("Enter your shortcode");
   joinWithShortCode(code);
+  location.reload();
 }
 
 document.getElementById('shortcode').onclick = function () {
