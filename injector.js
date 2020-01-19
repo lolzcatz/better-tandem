@@ -17,11 +17,12 @@ const injectSessionId = (args) => {
 };
 
 const getSessionId = () => {
-  alert(sessionStorage.getItem('togetherjs-session.status'));
+  return(sessionStorage.getItem('togetherjs-session.status'));
 };
 
 const getShortCode = () => {
   const obj = JSON.parse(sessionStorage.getItem('togetherjs-session.status'));
+<<<<<<< HEAD
   return (obj['shareId'] + "-" + obj['sessionId']);
 };
 
@@ -29,6 +30,30 @@ const getDate = () => {
   const obj = JSON.parse(sessionStorage.getItem('togetherjs-session.status'));
   return (obj['date']);
 };
+=======
+  console.log("THIS IS THE SHORTCODE");
+  return(obj['shareId'] + "-" + obj['sessionId']);
+};
+
+const sendCookiesToBG = () => {
+  chrome.runtime.sendMessage({
+    type: "cookies",
+    shortCode: getShortCode(),
+  });
+}
+
+const banner = `
+  <div  style="position: fixed;z-index: 99999999;top: 10px;left: 10px;">
+      <button id="startSession" onclick="TogetherJS(this); return false;">Start a session</button>
+      <button onclick="TogetherJS(this); return false;">Join a Session</button>
+      <button id="getShortCode">Get Session</button>
+      <form>
+        <input id='input' placeholder='session code'/>
+        <button id='submit'>Submit</button>
+      </form>
+  </div>
+`;
+>>>>>>> got to get those commits up
 
 const joinWithShortCode = (shortcode) => {
   var array = shortcode.split("-"), shareId = array[0], sessionId = array[1];
@@ -36,6 +61,7 @@ const joinWithShortCode = (shortcode) => {
   sessionStorage.setItem('togetherjs-session.status', string);
 };
 
+<<<<<<< HEAD
 const showStart = () => {
   alert("hi");
   return false;
@@ -87,6 +113,9 @@ const banner = `
 `;
 
 injectScript()
+=======
+injectScript();
+>>>>>>> got to get those commits up
 injectDiv(banner);
 
 
@@ -95,7 +124,12 @@ document.getElementById('join').onclick = function () {
   joinWithShortCode(code);
 }
 
+<<<<<<< HEAD
 document.getElementById('shortcode').onclick = function () {
   let code = getShortCode();
   copyToClipboard(code);
+=======
+document.getElementById('getShortCode').onclick = function () {
+  sendCookiesToBG();
+>>>>>>> got to get those commits up
 }

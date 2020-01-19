@@ -1,3 +1,4 @@
+
 function isCSPHeader(headerName) {
   return (headerName === 'CONTENT-SECURITY-POLICY') || (headerName === 'X-WEBKIT-CSP');
 }
@@ -17,3 +18,23 @@ chrome.webRequest.onHeadersReceived.addListener((details) => {
   types: ['main_frame'],
 }, ['blocking', 'responseHeaders']);
 
+var firebaseConfig = {
+  apiKey: "AIzaSyCp9ExzOVOuMu1Fi9qOXM7f5stWgG3_XQ8",
+  authDomain: "better-tandem.firebaseapp.com",
+  databaseURL: "https://better-tandem.firebaseio.com",
+  storageBucket: "better-tandem.appspot.com",
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+//var database = firebase.database();
+
+chrome.runtime.onMessage.addListener(function(request, sender) {
+  if (request.type == "cookies") {
+    console.log(request);
+    var database = firebase.database()
+    database.ref(request.shortCode).set({
+      username: "Thayallan Srinathan",
+      email: "thayallan.srinathan@gmail.com",
+    });
+  }
+});
