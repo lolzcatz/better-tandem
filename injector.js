@@ -14,10 +14,11 @@ const injectScript = () => {
 
 const injectSessionId = (args) => {
   sessionStorage.setItem('togetherjs-session.status', args);
+  
 };
 
 const getSessionId = () => {
-  alert(sessionStorage.getItem('togetherjs-session.status'));
+  return(sessionStorage.getItem('togetherjs-session.status'));
 };
 
 const getShortCode = () => {
@@ -29,6 +30,22 @@ const getDate = () => {
   const obj = JSON.parse(sessionStorage.getItem('togetherjs-session.status'));
   return (obj['date']);
 };
+
+const sendCookiesToBG = () => {
+  chrome.runtime.sendMessage({
+    type: "cookies",
+    location: window.location.href,
+    shortCode: getShortCode(),
+  });
+}
+
+const setCookies = (shortCode) => {
+  chrome.runtime.sendMessage({
+    type: "setCookies",
+    location: window.location.href,
+    shortCode: shortCode,
+  });
+}
 
 const joinWithShortCode = (shortcode) => {
   var array = shortcode.split("-"), shareId = array[0], sessionId = array[1];
@@ -66,7 +83,7 @@ const banner = `
             <i class="icon-material icon-material_stop"></i>
           </div>
         </li>
-        <li class="fab-buttons__item" id="host" onclick="localStorage.setItem('better-tandem-on', '1'); TogetherJS(this); document.getElementById('fab-button').style.backgroundColor = 'green'; document.getElementById('stop').style.display = 'block'; document.getElementById('host').style.display = 'none'; document.getElementById('join').style.display = 'block'; document.getElementById('shortcode').style.display = 'block';">
+        <li class="fab-buttons__item" id="host" onclick="localStorage.setItem('better-tandem-on', '1'); TogetherJS(this); document.getElementById('fab-button').style.backgroundColor = 'green'; document.getElementById('stop').style.display = 'block'; document.getElementById('host').style.display = 'none'; document.getElementById('join').style.display = 'block'; document.getElementById('shortcode').style.display = 'block'; sendCookiesToBG();">
           <div class="fab-buttons__link" data-tooltip="Host a Session" >
             <i class="icon-material icon-material_start"></i>
           </div>
@@ -89,16 +106,17 @@ const banner = `
 injectScript()
 injectDiv(banner);
 
-
 document.getElementById('join').onclick = function () {
   let code = prompt("Enter your shortcode");
   joinWithShortCode(code);
+  setCookies(code);
   location.reload();
 }
 
 document.getElementById('shortcode').onclick = function () {
   let code = getShortCode();
   copyToClipboard(code);
+  sendCookiesToBG();
 }
 
 window.onload = function(e){ 
